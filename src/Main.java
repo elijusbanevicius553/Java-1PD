@@ -1,13 +1,13 @@
 import java.util.*;
 public class Main {
     public static void main(String[] args) {
-        Pair<Integer, String> pair = new Pair<>(10, "Hello");
-        System.out.println(pair.getFirst());    // Output: 10
-        System.out.println(pair.getSecond());   // Output: Hello
-        pair.setFirst(20);
-        pair.setSecond("World");
-        System.out.println(pair.getFirst());    // Output: 20
-        System.out.println(pair.getSecond());   // Output: World
+        Pair<String, Integer> automobilisPair = new Pair<>("Audi", 2023);
+        System.out.println(automobilisPair.getFirst()); // Output: Audi
+        System.out.println(automobilisPair.getSecond()); // Output: 2023
+        automobilisPair.setFirst("BMW");
+        automobilisPair.setSecond(2024);
+        System.out.println(automobilisPair.getFirst()); // Output: BMW
+        System.out.println(automobilisPair.getSecond()); // Output: 2024
         List<Automobilis> automobiliuSarasas = new ArrayList<>();
         automobiliuSarasas.add(new Automobilis("Audi", 2023));
         automobiliuSarasas.add(new Automobilis("BMW", 2024));
