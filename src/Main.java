@@ -1,3 +1,10 @@
+import annotations.ClassAnnotation;
+import annotations.FieldAnnotation;
+import annotations.MethodAnnotation;
+import models.Automobilis;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.*;
 public class Main {
     public static void main(String[] args) {
@@ -33,6 +40,33 @@ public class Main {
         automobiliuSarasas.sort(automobilisPagalMetaiAtvirkstineTvarka);
         System.out.println("\nAutomobiliai pagal metus atvirkštine tvarka:");
         automobiliuSarasas.forEach(System.out::println);
+
+        try {
+            // Gaukite models.Automobilis klasės anotaciją
+            Class<Automobilis> automobilisClass = Automobilis.class;
+            ClassAnnotation classAnnotation = automobilisClass.getAnnotation(ClassAnnotation.class);
+            System.out.println("models.Automobilis klasės anotacija: " + classAnnotation.name() + ", " + classAnnotation.date());
+
+            // Gaukite laukų anotacijas
+            Field[] fields = automobilisClass.getDeclaredFields();
+            for (Field field : fields) {
+                FieldAnnotation fieldAnnotation = field.getAnnotation(FieldAnnotation.class);
+                if (fieldAnnotation != null) {
+                    System.out.println("Laukas " + field.getName() + " su anotacija: " + fieldAnnotation.name() + ", " + fieldAnnotation.date());
+                }
+            }
+
+            // Gaukite metodų anotacijas
+            Method[] methods = automobilisClass.getDeclaredMethods();
+            for (Method method : methods) {
+                MethodAnnotation methodAnnotation = method.getAnnotation(MethodAnnotation.class);
+                if (methodAnnotation != null) {
+                    System.out.println("Metodas " + method.getName() + " su anotacija: " + methodAnnotation.name() + ", " + methodAnnotation.date());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public static Comparator<Automobilis> automobilisPagalMarke = new Comparator<Automobilis>() {
         @Override
