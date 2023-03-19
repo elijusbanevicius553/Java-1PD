@@ -3,12 +3,14 @@ import annotations.FieldAnnotation;
 import annotations.MethodAnnotation;
 import exceptions.InvalidMetaiException;
 import exceptions.InvalidMarkeException;
+import filter.CarFilter;
 import models.Automobilis;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 public class Main {
     public static void main(String[] args) throws InvalidMarkeException {
         Pair<String, Integer> automobilisPair = new Pair<>("Audi", 2023);
@@ -84,6 +86,26 @@ public class Main {
         } catch (InvalidMetaiException e) {
             System.out.println("Klaida sukuriant automobilį: " + e.getMessage());
         }
+
+        // Sukuriame CarFilter interfeiso objektą, kuris filtruos automobilius pagal metus
+        CarFilter carFilter = (automobilis) -> automobilis.getMetai() > 2023;
+
+        List<Automobilis> filteredCars = automobiliuSarasas.stream()
+                .filter(carFilter::filter)
+                .collect(Collectors.toList());
+
+        System.out.println("\nAutomobiliai, vyresni nei 2023 metai:");
+        filteredCars.forEach(System.out::println);
+
+        // Panaudojame java.util.function.Predicate interfeisą filtravimui
+        Predicate<Automobilis> predicate = (automobilis) -> automobilis.getMarke().startsWith("B");
+
+        List<Automobilis> bmwCars = automobiliuSarasas.stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
+
+        System.out.println("\nAutomobiliai, kurių markė prasideda raide B:");
+        bmwCars.forEach(System.out::println);
     }
     public static Comparator<Automobilis> automobilisPagalMarke = new Comparator<Automobilis>() {
         @Override
