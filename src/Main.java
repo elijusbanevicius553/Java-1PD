@@ -1,13 +1,16 @@
 import annotations.ClassAnnotation;
 import annotations.FieldAnnotation;
 import annotations.MethodAnnotation;
+import exceptions.InvalidMetaiException;
+import exceptions.InvalidMarkeException;
 import models.Automobilis;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
 import java.util.*;
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidMarkeException {
         Pair<String, Integer> automobilisPair = new Pair<>("Audi", 2023);
         System.out.println(automobilisPair.getFirst()); // Output: Audi
         System.out.println(automobilisPair.getSecond()); // Output: 2023
@@ -15,6 +18,7 @@ public class Main {
         automobilisPair.setSecond(2024);
         System.out.println(automobilisPair.getFirst()); // Output: BMW
         System.out.println(automobilisPair.getSecond()); // Output: 2024
+
         List<Automobilis> automobiliuSarasas = new ArrayList<>();
         automobiliuSarasas.add(new Automobilis("Audi", 2023));
         automobiliuSarasas.add(new Automobilis("BMW", 2024));
@@ -66,6 +70,19 @@ public class Main {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+
+        try {
+            Automobilis auto1 = new Automobilis("", 2023); // Ši eilutė sukels InvalidMarkeException
+        } catch (InvalidMarkeException e) {
+            System.out.println("Klaida sukuriant automobilį: " + e.getMessage());
+        }
+
+        try {
+            Automobilis auto2 = new Automobilis("Audi", 1850); // Ši eilutė sukels InvalidMetaiException
+        } catch (InvalidMetaiException e) {
+            System.out.println("Klaida sukuriant automobilį: " + e.getMessage());
         }
     }
     public static Comparator<Automobilis> automobilisPagalMarke = new Comparator<Automobilis>() {
