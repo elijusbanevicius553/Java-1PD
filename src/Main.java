@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws InvalidMarkeException {
+        System.out.println("================= PAIR =================");
         Pair<String, Integer> automobilisPair = new Pair<>("Audi", 2023);
         System.out.println(automobilisPair.getFirst()); // Output: Audi
         System.out.println(automobilisPair.getSecond()); // Output: 2023
@@ -27,6 +28,7 @@ public class Main {
         automobiliuSarasas.add(new Automobilis("Mercedes", 2022));
         automobiliuSarasas.add(new Automobilis("Tesla", 2025));
 
+        System.out.print("========= Comparable/Comparator =========");
         // Rūšiavimas pagal markę (Comparable)
         Collections.sort(automobiliuSarasas);
         System.out.println("\nAutomobiliai pagal markę:");
@@ -48,12 +50,13 @@ public class Main {
         automobiliuSarasas.forEach(System.out::println);
 
         try {
-            // Gaukite models.Automobilis klasės anotaciją
+            // Gauname Automobilis klasės anotaciją
+            System.out.println("================= ANOTACIJOS ============");
             Class<Automobilis> automobilisClass = Automobilis.class;
             ClassAnnotation classAnnotation = automobilisClass.getAnnotation(ClassAnnotation.class);
-            System.out.println("models.Automobilis klasės anotacija: " + classAnnotation.name() + ", " + classAnnotation.date());
+            System.out.println("Automobilis KLASĖS anotacija: " + classAnnotation.name() + ", " + classAnnotation.date());
 
-            // Gaukite laukų anotacijas
+            // Gauname laukų anotacijas
             Field[] fields = automobilisClass.getDeclaredFields();
             for (Field field : fields) {
                 FieldAnnotation fieldAnnotation = field.getAnnotation(FieldAnnotation.class);
@@ -62,7 +65,7 @@ public class Main {
                 }
             }
 
-            // Gaukite metodų anotacijas
+            // Gauname metodų anotacijas
             Method[] methods = automobilisClass.getDeclaredMethods();
             for (Method method : methods) {
                 MethodAnnotation methodAnnotation = method.getAnnotation(MethodAnnotation.class);
@@ -74,7 +77,7 @@ public class Main {
             e.printStackTrace();
         }
 
-
+        System.out.println("============= EXCEPTIONS ============");
         try {
             Automobilis auto1 = new Automobilis("", 2023); // Ši eilutė sukels InvalidMarkeException
         } catch (InvalidMarkeException e) {
@@ -87,6 +90,7 @@ public class Main {
             System.out.println("Klaida sukuriant automobilį: " + e.getMessage());
         }
 
+        System.out.println("=============== FILTER/INTERFACE ============");
         // Sukuriame CarFilter interfeiso objektą, kuris filtruos automobilius pagal metus
         CarFilter carFilter = (automobilis) -> automobilis.getMetai() > 2023;
 
